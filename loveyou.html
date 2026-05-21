@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine Website 💗</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffb6c1, #ffc0cb, #ffe4e1);
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.75);
+      padding: 35px 25px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+      width: 90%;
+      max-width: 420px;
+      position: relative;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 105, 180, 0.2);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #ff2e93;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(255, 46, 147, 0.25);
+    }
+
+    p {
+      color: #b8005d;
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+    }
+
+    .gif {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 3px solid rgba(255, 46, 147, 0.25);
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 22px;
+      font-size: 1.05rem;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-weight: 600;
+    }
+
+    #yesBtn {
+      background: #ff2e93;
+      color: white;
+      box-shadow: 0 10px 20px rgba(255, 46, 147, 0.35);
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.05);
+      background: #ff0a7f;
+    }
+
+    #noBtn {
+      background: #ffffff;
+      color: #ff2e93;
+      border: 2px solid #ff2e93;
+      box-shadow: 0 10px 20px rgba(255, 46, 147, 0.15);
+      position: absolute;
+      left: 55%;
+      top: 78%;
+    }
+
+    .loveText {
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: 100;
+      color: #ff0a7f;
+      display: none;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 22px;
+      animation: float 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-110vh) scale(1.6); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>I Love U 💖</h1>
+    <p>ပြန်ချစ်ပါနော် 🥺</p>
+
+    <!-- GIF Sticker -->
+    <img class="gif" src="bu2.gif"
+      alt="Valentine Gif" />
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💖</button>
+    </div>
+
+    <!-- No Button (moving) -->
+    <button id="noBtn">No 😭</button>
+
+    <div class="loveText" id="loveText">
+ပြန်ချစ်ရင် မင်္ဂလာဆောင်ဖိတ်စာရိုက်ပြီနော်😁
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const loveText = document.getElementById("loveText");
+
+    // YES button click
+    yesBtn.addEventListener("click", () => {
+      loveText.style.display = "block";
+    });
+
+    // Move NO button when trying to click / hover
+    function moveNoButton() {
+      const card = document.querySelector(".card");
+
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = cardRect.width - btnRect.width - 10;
+      const maxY = cardRect.height - btnRect.height - 10;
+
+      let randomX = Math.floor(Math.random() * maxX);
+      let randomY = Math.floor(Math.random() * maxY);
+      // Keep button inside card
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("click", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+
+    // Floating hearts effect
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "🌹";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.bottom = "-20px";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+</body>
+</html>
